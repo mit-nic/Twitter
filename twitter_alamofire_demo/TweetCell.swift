@@ -10,11 +10,22 @@ import UIKit
 
 class TweetCell: UITableViewCell {
     
-    @IBOutlet weak var tweetTextLabel: UILabel!
+    @IBOutlet weak var tweetTextView: UITextView!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var replyLabel: UILabel!
+    @IBOutlet weak var rtLabel: UILabel!
+    @IBOutlet weak var favLabel: UILabel!
     
     var tweet: Tweet! {
         didSet {
-            tweetTextLabel.text = tweet.text
+            tweetTextView.text = tweet.text
+            usernameLabel.text = tweet.user.screenName
+            nameLabel.text = tweet.user.name
+            dateLabel.text = tweet.createdAtString
+            rtLabel.text = String(describing: tweet.retweetCount)
+            favLabel.text = String(describing:tweet.favoriteCount!)
         }
     }
     
