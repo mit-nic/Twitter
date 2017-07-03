@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class TweetCell: UITableViewCell {
     
@@ -17,6 +18,7 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var replyLabel: UILabel!
     @IBOutlet weak var rtLabel: UILabel!
     @IBOutlet weak var favLabel: UILabel!
+    @IBOutlet weak var profileImageView: UIImageView!
     
     var tweet: Tweet! {
         didSet {
@@ -26,6 +28,7 @@ class TweetCell: UITableViewCell {
             dateLabel.text = tweet.createdAtString
             rtLabel.text = String(describing: tweet.retweetCount)
             favLabel.text = String(describing:tweet.favoriteCount!)
+            profileImageView.af_setImage(withURL: tweet.user.profilePicture!)
         }
     }
     

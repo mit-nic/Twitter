@@ -191,6 +191,7 @@
                                             <outlet property="dateLabel" destination="X1t-5N-gxj" id="0iX-p4-rZi"/>
                                             <outlet property="favLabel" destination="wSd-j9-Jfj" id="Mje-hz-i1A"/>
                                             <outlet property="nameLabel" destination="RSS-tR-Q97" id="cns-Q1-Vu8"/>
+                                            <outlet property="profileImageView" destination="0IZ-hY-d5h" id="CN8-qo-EVz"/>
                                             <outlet property="replyLabel" destination="bZV-h0-MnT" id="b5y-u6-Xsz"/>
                                             <outlet property="rtLabel" destination="HjA-zg-ijV" id="wAE-9j-rUJ"/>
                                             <outlet property="tweetTextView" destination="pbS-nT-BLp" id="vsw-yz-wD1"/>
