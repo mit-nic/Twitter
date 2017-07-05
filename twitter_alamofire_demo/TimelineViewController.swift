@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TimelineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TimelineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ComposeViewControllerDelegate {
     
     var tweets: [Tweet] = []
     
@@ -79,14 +79,21 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         APIManager.shared.logout()
     }
     
-    @IBAction func didTapPost(_ sender: Any) {
+    @IBAction func didTapCompose(_ sender: Any) {
         performSegue(withIdentifier: "postSegue", sender: nil)
+    }
+    
+    func did(post: Tweet) {
+        let refreshControl = UIRefreshControl()
+        refreshControlAction(refreshControl)
+        dismiss(animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "postSegue" {
             let vc = segue.destination as! ComposeViewController
             vc.imageLink = User.current?.profilePicture
+            vc.delegate = self
         }
     }
     

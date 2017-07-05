@@ -68,7 +68,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WKy-Lc-DOq">
-                                <rect key="frame" x="0.0" y="50" width="375" height="284"/>
+                                <rect key="frame" x="0.0" y="66" width="375" height="284"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -86,8 +86,21 @@
                                     <action selector="didCancel:" destination="EWG-9B-m1w" eventType="touchUpInside" id="x6E-5g-LJC"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a2W-nY-nU6">
+                                <rect key="frame" x="163" y="447" width="50" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Post"/>
+                                <connections>
+                                    <action selector="didTapPost:" destination="EWG-9B-m1w" eventType="touchUpInside" id="W0i-tF-gc5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Olv-SQ-237" appends="YES" id="ufA-XB-AHl"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="composeTextView" destination="WKy-Lc-DOq" id="kZu-st-K5T"/>
@@ -95,6 +108,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hAh-ko-xkg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Olv-SQ-237">
+                    <connections>
+                        <action selector="didTap:" destination="EWG-9B-m1w" id="bVk-91-7M5"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1660" y="-699.40029985007504"/>
         </scene>
@@ -249,13 +267,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Home Timeline" id="9Zi-uW-GTS">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="nkW-M8-wMj">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="B9Q-6E-RQS">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="4TL-ti-cyR">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="umk-CV-MAW">
                                 <rect key="frame" x="16" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Post"/>
+                                <state key="normal" title="Compose"/>
                                 <connections>
-                                    <action selector="didTapPost:" destination="5YO-Vh-39k" eventType="touchUpInside" id="Qjp-lU-VDP"/>
+                                    <action selector="didTapCompose:" destination="5YO-Vh-39k" eventType="touchUpInside" id="eQ0-cQ-w6z"/>
                                 </connections>
                             </button>
                         </barButtonItem>

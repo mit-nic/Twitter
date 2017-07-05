@@ -9,12 +9,17 @@
 import UIKit
 import AlamofireImage
 
+protocol ComposeViewControllerDelegate {
+    func did(post: Tweet)
+}
+
 class ComposeViewController: UIViewController {
 
     @IBOutlet weak var composeTextView: UITextView!
     @IBOutlet weak var profileImageView: UIImageView!
     
     var imageLink: URL!
+    var delegate: ComposeViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +37,20 @@ class ComposeViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func didTapPost(_ sender: Any) {
+        APIManager.shared.composeTweet(with: composeTextView.text) { (tweet, error) in
+            if let error = error {
+                print("Error composing Tweet: \(error.localizedDescription)")
+            } else if let tweet = tweet {
+                self.delegate?.did(post: tweet)
+                print("Compose Tweet Success!")
+            }
+        }
+    }
 
+    @IBAction func didTap(_ sender: Any) {
+        view.endEditing(true)
+    }
     /*
     // MARK: - Navigation
 
