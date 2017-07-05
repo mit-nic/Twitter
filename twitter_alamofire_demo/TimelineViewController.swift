@@ -79,15 +79,15 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         APIManager.shared.logout()
     }
     
+    @IBAction func didTapPost(_ sender: Any) {
+        performSegue(withIdentifier: "postSegue", sender: nil)
+    }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "postSegue" {
+            let vc = segue.destination as! ComposeViewController
+            vc.imageLink = User.current?.profilePicture
+        }
+    }
     
 }
