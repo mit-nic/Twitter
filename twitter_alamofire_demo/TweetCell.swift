@@ -11,7 +11,7 @@ import AlamofireImage
 
 class TweetCell: UITableViewCell {
     
-    @IBOutlet weak var tweetTextView: UITextView!
+    @IBOutlet weak var tweetLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -22,7 +22,7 @@ class TweetCell: UITableViewCell {
     
     var tweet: Tweet! {
         didSet {
-            tweetTextView.text = tweet.text
+            tweetLabel.text = tweet.text
             usernameLabel.text = tweet.user.screenName
             nameLabel.text = tweet.user.name
             dateLabel.text = tweet.createdAtString
