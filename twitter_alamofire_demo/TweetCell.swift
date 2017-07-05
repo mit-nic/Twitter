@@ -20,6 +20,10 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var favLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     
+    @IBOutlet weak var rtButton: UIButton!
+    @IBOutlet weak var favButton: UIButton!
+    
+    
     var tweet: Tweet! {
         didSet {
             tweetLabel.text = tweet.text
@@ -29,6 +33,22 @@ class TweetCell: UITableViewCell {
             rtLabel.text = String(describing: tweet.retweetCount)
             favLabel.text = String(describing:tweet.favoriteCount!)
             profileImageView.af_setImage(withURL: tweet.user.profilePicture!)
+        }
+    }
+    
+    @IBAction func retweetPress(_ sender: Any) {
+        if rtButton.isSelected {
+            rtButton.isSelected = false
+        } else {
+            rtButton.isSelected = true
+        }
+    }
+    
+    @IBAction func favoritePress(_ sender: Any) {
+        if favButton.isSelected {
+            favButton.isSelected = false
+        } else {
+            favButton.isSelected = true
         }
     }
     

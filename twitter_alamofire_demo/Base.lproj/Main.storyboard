@@ -212,6 +212,10 @@
                                                         <constraint firstAttribute="width" constant="20" id="I51-zs-NcC"/>
                                                     </constraints>
                                                     <state key="normal" image="retweet-icon"/>
+                                                    <state key="selected" image="retweet-icon-green"/>
+                                                    <connections>
+                                                        <action selector="retweetPress:" destination="U1g-kw-izy" eventType="touchUpInside" id="4q1-5F-aVl"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WF9-32-J9O">
                                                     <rect key="frame" x="260" y="70.5" width="20" height="20"/>
@@ -219,6 +223,10 @@
                                                         <constraint firstAttribute="width" constant="20" id="t81-gw-baj"/>
                                                     </constraints>
                                                     <state key="normal" image="favor-icon"/>
+                                                    <state key="selected" image="favor-icon-red"/>
+                                                    <connections>
+                                                        <action selector="favoritePress:" destination="U1g-kw-izy" eventType="touchUpInside" id="Dmw-Qa-xh3"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -256,10 +264,12 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateLabel" destination="X1t-5N-gxj" id="0iX-p4-rZi"/>
+                                            <outlet property="favButton" destination="WF9-32-J9O" id="3Ye-bE-z1O"/>
                                             <outlet property="favLabel" destination="wSd-j9-Jfj" id="Mje-hz-i1A"/>
                                             <outlet property="nameLabel" destination="RSS-tR-Q97" id="cns-Q1-Vu8"/>
                                             <outlet property="profileImageView" destination="0IZ-hY-d5h" id="CN8-qo-EVz"/>
                                             <outlet property="replyLabel" destination="bZV-h0-MnT" id="b5y-u6-Xsz"/>
+                                            <outlet property="rtButton" destination="gYI-gV-jDM" id="zth-0n-GLh"/>
                                             <outlet property="rtLabel" destination="HjA-zg-ijV" id="wAE-9j-rUJ"/>
                                             <outlet property="tweetLabel" destination="hNq-xO-56U" id="T3Y-xf-xtj"/>
                                             <outlet property="usernameLabel" destination="T8T-rt-mhd" id="K3u-n3-dha"/>
@@ -318,7 +328,9 @@
     <resources>
         <image name="TwitterLogoBlue" width="200" height="200"/>
         <image name="favor-icon" width="30" height="30"/>
+        <image name="favor-icon-red" width="30" height="30"/>
         <image name="reply-icon" width="30" height="30"/>
         <image name="retweet-icon" width="30" height="30"/>
+        <image name="retweet-icon-green" width="30" height="30"/>
     </resources>
 </document>
