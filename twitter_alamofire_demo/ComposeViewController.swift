@@ -13,7 +13,7 @@ protocol ComposeViewControllerDelegate {
     func did(post: Tweet)
 }
 
-class ComposeViewController: UIViewController {
+class ComposeViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var composeTextView: UITextView!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -23,7 +23,18 @@ class ComposeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        composeTextView.delegate = self
+        composeTextView.text = "What's happening?"
+        composeTextView.textColor = UIColor.lightGray
+        composeTextView.selectedTextRange = composeTextView.textRange(from: composeTextView.beginningOfDocument, to: composeTextView.beginningOfDocument)
+        
+        
         composeTextView.becomeFirstResponder()
+        profileImageView.layer.borderWidth = 1
+        profileImageView.layer.masksToBounds = false
+        profileImageView.layer.borderColor = UIColor.lightGray.cgColor
+        profileImageView.layer.cornerRadius = profileImageView.frame.height/2
+        profileImageView.clipsToBounds = true
         profileImageView.af_setImage(withURL: imageLink)
         // Do any additional setup after loading the view.
     }
@@ -31,6 +42,23 @@ class ComposeViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let currentText = textView.text as NSString?
+        let updatedText = currentText?.replacingCharacters(in: range, with: text)
+        
+        if (updatedText?.isEmpty)! {
+            textView.text = "What's happening?"
+            textView.textColor = UIColor.lightGray
+            textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
+            
+            return false
+        } else if textView.textColor == UIColor.lightGray && !text.isEmpty {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+        return true
     }
     
     @IBAction func didCancel(_ sender: Any) {
