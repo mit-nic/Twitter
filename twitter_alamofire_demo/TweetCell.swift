@@ -117,14 +117,16 @@ class TweetCell: UITableViewCell {
         dateLabel.text = tweet.createdAtString
         rtLabel.text = String(describing: tweet.retweetCount)
         profileImageView.af_setImage(withURL: tweet.user.profilePicture!)
-        favButton.isSelected = tweet.favorited!
-        rtButton.isSelected = tweet.retweeted
         
         if let retweetedStatus = tweet.retweetedStatus {
             let rTweet = Tweet(dictionary: retweetedStatus)
             favLabel.text = String(describing: rTweet.favoriteCount!)
+            favButton.isSelected = rTweet.favorited!
+            rtButton.isSelected = rTweet.retweeted
         } else {
             favLabel.text = String(describing:tweet.favoriteCount!)
+            favButton.isSelected = tweet.favorited!
+            rtButton.isSelected = tweet.retweeted
         }
     }
     

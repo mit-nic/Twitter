@@ -78,11 +78,10 @@
                                 <rect key="frame" x="16" y="20" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4PA-iF-byT">
-                                <rect key="frame" x="329" y="20" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4PA-iF-byT">
+                                <rect key="frame" x="325" y="23" width="38" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="X"/>
+                                <state key="normal" image="close-icon"/>
                                 <connections>
                                     <action selector="didCancel:" destination="EWG-9B-m1w" eventType="touchUpInside" id="x6E-5g-LJC"/>
                                 </connections>
@@ -106,6 +105,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera-icon" translatesAutoresizingMaskIntoConstraints="NO" id="OCc-BF-2oo">
+                                <rect key="frame" x="16" y="370" width="21" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="gif-icon" translatesAutoresizingMaskIntoConstraints="NO" id="VgF-EL-APz">
+                                <rect key="frame" x="54" y="370" width="21" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="stat-icon" translatesAutoresizingMaskIntoConstraints="NO" id="M7F-UV-NQK">
+                                <rect key="frame" x="93" y="370" width="21" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -120,7 +131,7 @@
             </objects>
             <point key="canvasLocation" x="2597.5999999999999" y="-693.10344827586209"/>
         </scene>
-        <!--Home Timeline-->
+        <!--Home Feed-->
         <scene sceneID="5vf-Kh-7ye">
             <objects>
                 <viewController storyboardIdentifier="TimelineViewController" id="5YO-Vh-39k" customClass="TimelineViewController" customModule="twitter_alamofire_demo" customModuleProvider="target" sceneMemberID="viewController">
@@ -284,21 +295,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Home Timeline" id="9Zi-uW-GTS">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="4TL-ti-cyR">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="umk-CV-MAW">
-                                <rect key="frame" x="16" y="7" width="83" height="30"/>
+                    <navigationItem key="navigationItem" title="Home Feed" id="9Zi-uW-GTS">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="hz2-ji-ft0">
+                            <connections>
+                                <action selector="didTapLogout:" destination="5YO-Vh-39k" id="fM7-h5-mq1"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="4TL-ti-cyR">
+                            <button key="customView" opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="umk-CV-MAW">
+                                <rect key="frame" x="323" y="8" width="36" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Compose"/>
+                                <state key="normal" image="edit-icon"/>
                                 <connections>
                                     <action selector="didTapCompose:" destination="5YO-Vh-39k" eventType="touchUpInside" id="eQ0-cQ-w6z"/>
                                 </connections>
                             </button>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Logout" id="hz2-ji-ft0">
-                            <connections>
-                                <action selector="didTapLogout:" destination="5YO-Vh-39k" id="fM7-h5-mq1"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -323,16 +334,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="2t5-P2-r4n"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FZ0-Nn-MiB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2563" y="736"/>
+            <point key="canvasLocation" x="2599" y="734"/>
         </scene>
-        <!--Item-->
+        <!--Feed-->
         <scene sceneID="WXZ-z8-8LI">
             <objects>
                 <navigationController storyboardIdentifier="TweetsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="RFK-Vv-pWW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="hzI-5V-zqg"/>
+                    <tabBarItem key="tabBarItem" title="Feed" image="home-icon" selectedImage="home-icon" id="hzI-5V-zqg"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="COb-xK-t9O">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -358,19 +370,46 @@
                     </tabBar>
                     <connections>
                         <segue destination="RFK-Vv-pWW" kind="relationship" relationship="viewControllers" id="R38-6R-cO9"/>
+                        <segue destination="FVt-L7-NGq" kind="relationship" relationship="viewControllers" id="wlY-zy-WaP"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3NN-9p-jw5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="860" y="36.431784107946029"/>
         </scene>
+        <!--Profile-->
+        <scene sceneID="wkk-e5-IDg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FVt-L7-NGq" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Profile" image="profile-Icon" selectedImage="profile-Icon" id="nyN-wF-vXU"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="js2-g9-i1s">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="du8-Fi-tt9" kind="relationship" relationship="rootViewController" id="0LW-ek-SRq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Gf-C5-LYA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1799" y="735"/>
+        </scene>
     </scenes>
     <resources>
         <image name="TwitterLogoBlue" width="200" height="200"/>
+        <image name="camera-icon" width="30" height="23"/>
+        <image name="close-icon" width="26" height="24"/>
+        <image name="edit-icon" width="30" height="27"/>
         <image name="favor-icon" width="30" height="30"/>
         <image name="favor-icon-red" width="30" height="30"/>
+        <image name="gif-icon" width="30" height="24"/>
+        <image name="home-icon" width="30" height="30"/>
+        <image name="profile-Icon" width="26" height="26"/>
         <image name="reply-icon" width="30" height="30"/>
         <image name="retweet-icon" width="30" height="30"/>
         <image name="retweet-icon-green" width="30" height="30"/>
+        <image name="stat-icon" width="30" height="22"/>
     </resources>
 </document>

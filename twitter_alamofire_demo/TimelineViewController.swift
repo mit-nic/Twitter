@@ -24,6 +24,9 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        let image = UIImage(named: "Twitter_logo_blue_48")
+        self.navigationItem.titleView = UIImageView(image: image)
+        
         APIManager.shared.getHomeTimeLine { (tweets, error) in
             if let tweets = tweets {
                 self.tweets = tweets
