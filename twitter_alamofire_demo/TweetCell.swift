@@ -32,7 +32,6 @@ class TweetCell: UITableViewCell {
     
     @IBAction func retweetPress(_ sender: Any) {
         if rtButton.isSelected {
-            rtButton.isSelected = false
             tweet.retweeted = false
             tweet.retweetCount -= 1
             APIManager.shared.unretweet(tweet) { (tweet: Tweet?, error: Error?) in
@@ -43,7 +42,6 @@ class TweetCell: UITableViewCell {
                 }
             }
         } else {
-            rtButton.isSelected = true
             tweet.retweeted = true
             tweet.retweetCount += 1
             APIManager.shared.retweet(tweet) { (tweet: Tweet?, error: Error?) in
@@ -59,25 +57,53 @@ class TweetCell: UITableViewCell {
     
     @IBAction func favoritePress(_ sender: Any) {
         if favButton.isSelected {
-            favButton.isSelected = false
-            tweet.favorited = false
-            tweet.favoriteCount! -= 1
-            APIManager.shared.unfavorite(tweet) { (tweet: Tweet?, error: Error?) in
-                if let error = error {
-                    print("Error unfavoriting tweet: \(error.localizedDescription)")
-                } else if let tweet = tweet {
-                    print("Successfully unfavorited the following Tweet: \n\(tweet.text)")
+            
+            if let retweetedStatus = tweet.retweetedStatus {
+                let rTweet = Tweet(dictionary: retweetedStatus)
+                rTweet.favoriteCount! -= 1
+                rTweet.favorited = false
+                APIManager.shared.unfavorite(rTweet) { (tweet: Tweet?, error: Error?) in
+                    if let error = error {
+                        print("Error unfavoriting tweet: \(error.localizedDescription)")
+                    } else if let tweet = tweet {
+                        print("Successfully unfavorited the following Tweet: \n\(tweet.text)")
+                    }
+                }
+
+            
+            } else {
+                tweet.favorited = false
+                tweet.favoriteCount! -= 1
+                APIManager.shared.unfavorite(tweet) { (tweet: Tweet?, error: Error?) in
+                    if let error = error {
+                        print("Error unfavoriting tweet: \(error.localizedDescription)")
+                    } else if let tweet = tweet {
+                        print("Successfully unfavorited the following Tweet: \n\(tweet.text)")
+                    }
                 }
             }
         } else {
-            favButton.isSelected = true
-            tweet.favorited = true
-            tweet.favoriteCount! += 1
-            APIManager.shared.favorite(tweet) { (tweet: Tweet?, error: Error?) in
-                if let error = error {
-                    print("Error favoriting tweet: \(error.localizedDescription)")
-                } else if let tweet = tweet {
-                    print("Successfully favorited the following Tweet: \n\(tweet.text)")
+            if let retweetedStatus = tweet.retweetedStatus {
+                let rTweet = Tweet(dictionary: retweetedStatus)
+                rTweet.favoriteCount! += 1
+                rTweet.favorited = true
+                APIManager.shared.favorite(rTweet) { (tweet: Tweet?, error: Error?) in
+                    if let error = error {
+                        print("Error favoriting tweet: \(error.localizedDescription)")
+                    } else if let tweet = tweet {
+                        print("Successfully favorited the following Tweet: \n\(tweet.text)")
+                    }
+                }
+                
+            } else {
+                tweet.favorited = true
+                tweet.favoriteCount! += 1
+                APIManager.shared.favorite(tweet) { (tweet: Tweet?, error: Error?) in
+                    if let error = error {
+                        print("Error favoriting tweet: \(error.localizedDescription)")
+                    } else if let tweet = tweet {
+                        print("Successfully favorited the following Tweet: \n\(tweet.text)")
+                    }
                 }
             }
         }
@@ -91,9 +117,12 @@ class TweetCell: UITableViewCell {
         dateLabel.text = tweet.createdAtString
         rtLabel.text = String(describing: tweet.retweetCount)
         profileImageView.af_setImage(withURL: tweet.user.profilePicture!)
+        favButton.isSelected = tweet.favorited!
+        rtButton.isSelected = tweet.retweeted
         
         if let retweetedStatus = tweet.retweetedStatus {
-            favLabel.text = String(describing: retweetedStatus["favorite_count"]!)
+            let rTweet = Tweet(dictionary: retweetedStatus)
+            favLabel.text = String(describing: rTweet.favoriteCount!)
         } else {
             favLabel.text = String(describing:tweet.favoriteCount!)
         }

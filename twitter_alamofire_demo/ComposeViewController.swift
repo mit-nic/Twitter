@@ -17,6 +17,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var composeTextView: UITextView!
     @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var textCountLabel: UILabel!
     
     var imageLink: URL!
     var delegate: ComposeViewControllerDelegate?
@@ -58,6 +59,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
             textView.text = nil
             textView.textColor = UIColor.black
         }
+//        let length = count(textView.text.utf16) + count(text.utf16) - range.length
         return true
     }
     
