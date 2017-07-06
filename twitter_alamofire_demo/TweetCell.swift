@@ -26,30 +26,72 @@ class TweetCell: UITableViewCell {
     
     var tweet: Tweet! {
         didSet {
-            tweetLabel.text = tweet.text
-            usernameLabel.text = tweet.user.screenName
-            nameLabel.text = tweet.user.name
-            dateLabel.text = tweet.createdAtString
-            rtLabel.text = String(describing: tweet.retweetCount)
-            favLabel.text = String(describing:tweet.favoriteCount!)
-            profileImageView.af_setImage(withURL: tweet.user.profilePicture!)
+            refreshData()
         }
     }
     
     @IBAction func retweetPress(_ sender: Any) {
         if rtButton.isSelected {
             rtButton.isSelected = false
+            tweet.retweeted = false
+            tweet.retweetCount -= 1
+            APIManager.shared.unretweet(tweet) { (tweet: Tweet?, error: Error?) in
+                if let error = error {
+                    print("Error unretweeting tweet: \(error.localizedDescription)")
+                } else if let tweet = tweet {
+                    print("Successfully unretweeted the following Tweet: \n\(tweet.text)")
+                }
+            }
         } else {
             rtButton.isSelected = true
+            tweet.retweeted = true
+            tweet.retweetCount += 1
+            APIManager.shared.retweet(tweet) { (tweet: Tweet?, error: Error?) in
+                if let error = error {
+                    print("Error retweeting tweet: \(error.localizedDescription)")
+                } else if let tweet = tweet {
+                    print("Successfully retweeted the following Tweet: \n\(tweet.text)")
+                }
+            }
         }
+        refreshData()
     }
     
     @IBAction func favoritePress(_ sender: Any) {
         if favButton.isSelected {
             favButton.isSelected = false
+            tweet.favorited = false
+            tweet.favoriteCount! -= 1
+            APIManager.shared.unfavorite(tweet) { (tweet: Tweet?, error: Error?) in
+                if let error = error {
+                    print("Error unfavoriting tweet: \(error.localizedDescription)")
+                } else if let tweet = tweet {
+                    print("Successfully unfavorited the following Tweet: \n\(tweet.text)")
+                }
+            }
         } else {
             favButton.isSelected = true
+            tweet.favorited = true
+            tweet.favoriteCount! += 1
+            APIManager.shared.favorite(tweet) { (tweet: Tweet?, error: Error?) in
+                if let error = error {
+                    print("Error favoriting tweet: \(error.localizedDescription)")
+                } else if let tweet = tweet {
+                    print("Successfully favorited the following Tweet: \n\(tweet.text)")
+                }
+            }
         }
+        refreshData()
+    }
+    
+    func refreshData() {
+        tweetLabel.text = tweet.text
+        usernameLabel.text = tweet.user.screenName
+        nameLabel.text = tweet.user.name
+        dateLabel.text = tweet.createdAtString
+        rtLabel.text = String(describing: tweet.retweetCount)
+        favLabel.text = String(describing:tweet.favoriteCount!)
+        profileImageView.af_setImage(withURL: tweet.user.profilePicture!)
     }
     
     override func awakeFromNib() {
