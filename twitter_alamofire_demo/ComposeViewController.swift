@@ -53,13 +53,15 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
             textView.text = "What's happening?"
             textView.textColor = UIColor.lightGray
             textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
-            
+            textCountLabel.text = "140"
             return false
         } else if textView.textColor == UIColor.lightGray && !text.isEmpty {
             textView.text = nil
             textView.textColor = UIColor.black
         }
-//        let length = count(textView.text.utf16) + count(text.utf16) - range.length
+        
+        let length = 139 - textView.text.characters.count
+        textCountLabel.text = String(describing: length)
         return true
     }
     
@@ -68,19 +70,29 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func didTapPost(_ sender: Any) {
-        APIManager.shared.composeTweet(with: composeTextView.text) { (tweet, error) in
-            if let error = error {
-                print("Error composing Tweet: \(error.localizedDescription)")
-            } else if let tweet = tweet {
-                self.delegate?.did(post: tweet)
-                print("Compose Tweet Success!")
+        if 139 - composeTextView.text.characters.count > 0 {
+            APIManager.shared.composeTweet(with: composeTextView.text) { (tweet, error) in
+                if let error = error {
+                    print("Error composing Tweet: \(error.localizedDescription)")
+                } else if let tweet = tweet {
+                    self.delegate?.did(post: tweet)
+                    print("Compose Tweet Success!")
+                }
             }
+        } else {
+            let alertController = UIAlertController(title: "Error", message: "Your tweet is too long", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                print("User dismissed error")
+            })
+            
+            alertController.addAction(okAction)
+            present(alertController, animated: true) {
+            }
+
         }
     }
 
-    @IBAction func didTap(_ sender: Any) {
-        view.endEditing(true)
-    }
     /*
     // MARK: - Navigation
 

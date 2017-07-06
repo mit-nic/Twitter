@@ -109,9 +109,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="Olv-SQ-237" appends="YES" id="ufA-XB-AHl"/>
-                        </connections>
                     </view>
                     <connections>
                         <outlet property="composeTextView" destination="WKy-Lc-DOq" id="kZu-st-K5T"/>
@@ -120,11 +117,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hAh-ko-xkg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="Olv-SQ-237">
-                    <connections>
-                        <action selector="didTap:" destination="EWG-9B-m1w" id="bVk-91-7M5"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2597.5999999999999" y="-693.10344827586209"/>
         </scene>
