@@ -86,12 +86,17 @@ class TweetCell: UITableViewCell {
     
     func refreshData() {
         tweetLabel.text = tweet.text
-        usernameLabel.text = tweet.user.screenName
+        usernameLabel.text = "@" + tweet.user.screenName
         nameLabel.text = tweet.user.name
         dateLabel.text = tweet.createdAtString
         rtLabel.text = String(describing: tweet.retweetCount)
-        favLabel.text = String(describing:tweet.favoriteCount!)
         profileImageView.af_setImage(withURL: tweet.user.profilePicture!)
+        
+        if let retweetedStatus = tweet.retweetedStatus {
+            favLabel.text = String(describing: retweetedStatus["favorite_count"]!)
+        } else {
+            favLabel.text = String(describing:tweet.favoriteCount!)
+        }
     }
     
     override func awakeFromNib() {

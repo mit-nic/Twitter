@@ -19,6 +19,7 @@ class Tweet {
     var retweeted: Bool // Configure retweet button
     var user: User // Contains name, screenname, etc. of tweet author
     var createdAtString: String // Display date
+    var retweetedStatus: [String: Any]? //nil if it hasn't been retweeted, original tweet otherwise
     
     // MARK: - Create initializer with dictionary
     init(dictionary: [String: Any]) {
@@ -28,6 +29,10 @@ class Tweet {
         favorited = dictionary["favorited"] as? Bool
         retweetCount = dictionary["retweet_count"] as! Int
         retweeted = dictionary["retweeted"] as! Bool
+        
+        if dictionary["retweeted_status"] != nil {
+            retweetedStatus = dictionary["retweeted_status"] as? [String: Any]
+        }
         
         let user = dictionary["user"] as! [String: Any]
         self.user = User(dictionary: user)
