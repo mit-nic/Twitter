@@ -9,6 +9,10 @@
 import UIKit
 import AlamofireImage
 
+@objc protocol TweetCellDelegate {
+    func didSelectPhoto(tweetCell: TweetCell)
+}
+
 class TweetCell: UITableViewCell {
     
     @IBOutlet weak var tweetLabel: UILabel!
@@ -23,12 +27,13 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var rtButton: UIButton!
     @IBOutlet weak var favButton: UIButton!
     
-    
+    var rTweet: Tweet?
     var tweet: Tweet! {
         didSet {
             refreshData()
         }
     }
+    var delegate: TweetCellDelegate?
     
     @IBAction func retweetPress(_ sender: Any) {
         if rtButton.isSelected {
@@ -59,14 +64,15 @@ class TweetCell: UITableViewCell {
         if favButton.isSelected {
             
             if let retweetedStatus = tweet.retweetedStatus {
-                let rTweet = Tweet(dictionary: retweetedStatus)
-                rTweet.favoriteCount! -= 1
-                rTweet.favorited = false
-                APIManager.shared.unfavorite(rTweet) { (tweet: Tweet?, error: Error?) in
+//                rTweet = Tweet(dictionary: retweetedStatus)
+                rTweet!.favoriteCount! -= 1
+                rTweet!.favorited = false
+                APIManager.shared.unfavorite(rTweet!) { (tweet: Tweet?, error: Error?) in
                     if let error = error {
-                        print("Error unfavoriting tweet: \(error.localizedDescription)")
+                        print("Error unfavoriting retweet: \(error.localizedDescription)")
                     } else if let tweet = tweet {
-                        print("Successfully unfavorited the following Tweet: \n\(tweet.text)")
+                        print("Successfully unfavorited the following retweet: \n\(tweet.text)")
+                        self.refreshData()
                     }
                 }
 
@@ -79,19 +85,21 @@ class TweetCell: UITableViewCell {
                         print("Error unfavoriting tweet: \(error.localizedDescription)")
                     } else if let tweet = tweet {
                         print("Successfully unfavorited the following Tweet: \n\(tweet.text)")
+                        self.refreshData()
                     }
                 }
             }
         } else {
             if let retweetedStatus = tweet.retweetedStatus {
-                let rTweet = Tweet(dictionary: retweetedStatus)
-                rTweet.favoriteCount! += 1
-                rTweet.favorited = true
-                APIManager.shared.favorite(rTweet) { (tweet: Tweet?, error: Error?) in
+//                rTweet = Tweet(dictionary: retweetedStatus)
+                rTweet!.favoriteCount! += 1
+                rTweet!.favorited = true
+                APIManager.shared.favorite(rTweet!) { (tweet: Tweet?, error: Error?) in
                     if let error = error {
-                        print("Error favoriting tweet: \(error.localizedDescription)")
+                        print("Error favoriting retweet: \(error.localizedDescription)")
                     } else if let tweet = tweet {
-                        print("Successfully favorited the following Tweet: \n\(tweet.text)")
+                        print("Successfully favorited the following retweet: \n\(tweet.text)")
+                        self.refreshData()
                     }
                 }
                 
@@ -103,11 +111,11 @@ class TweetCell: UITableViewCell {
                         print("Error favoriting tweet: \(error.localizedDescription)")
                     } else if let tweet = tweet {
                         print("Successfully favorited the following Tweet: \n\(tweet.text)")
+                        self.refreshData()
                     }
                 }
             }
         }
-        refreshData()
     }
     
     func refreshData() {
@@ -119,10 +127,10 @@ class TweetCell: UITableViewCell {
         profileImageView.af_setImage(withURL: tweet.user.profilePicture!)
         
         if let retweetedStatus = tweet.retweetedStatus {
-            let rTweet = Tweet(dictionary: retweetedStatus)
-            favLabel.text = String(describing: rTweet.favoriteCount!)
-            favButton.isSelected = rTweet.favorited!
-            rtButton.isSelected = rTweet.retweeted
+            rTweet = Tweet(dictionary: retweetedStatus)
+            favLabel.text = String(describing: rTweet!.favoriteCount!)
+            favButton.isSelected = rTweet!.favorited!
+            rtButton.isSelected = rTweet!.retweeted
         } else {
             favLabel.text = String(describing:tweet.favoriteCount!)
             favButton.isSelected = tweet.favorited!
@@ -130,6 +138,9 @@ class TweetCell: UITableViewCell {
         }
     }
     
+    @IBAction func profilePress(_ sender: Any) {
+        delegate!.didSelectPhoto(tweetCell: self)
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         profileImageView.layer.borderWidth = 1

@@ -62,7 +62,7 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
-        
+        cell.delegate = self
         cell.tweet = tweets[indexPath.row]
         return cell
     }
@@ -96,7 +96,17 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
             let vc = segue.destination as! ComposeViewController
             vc.imageLink = User.current?.profilePicture
             vc.delegate = self
+        } else if segue.identifier == "profileSegue" {
+            let vc = segue.destination as! ProfileViewController
+            let cell = sender as! TweetCell
+            vc.user = cell.tweet.user
         }
     }
     
+}
+
+extension TimelineViewController: TweetCellDelegate {
+    func didSelectPhoto(tweetCell: TweetCell) {
+        performSegue(withIdentifier: "profileSegue", sender: tweetCell)
+    }
 }
