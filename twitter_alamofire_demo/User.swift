@@ -14,6 +14,11 @@ class User {
     var screenName: String
     var profilePicture: URL?
     var dictionary: [String: Any]?
+    var backgroundURL: URL?
+    var followersCount: Int
+    var followingCount: Int
+    var tweetCount: Int
+    var bio: String
     
     private static var _current: User?
     
@@ -50,6 +55,15 @@ class User {
         if let pictureString = pictureString {
             profilePicture = URL(string: pictureString)!
         }
+        let backgroundString = dictionary["profile_banner_url"] as? String
+        if let backgroundString = backgroundString {
+            backgroundURL = URL(string: backgroundString)!
+        }
+        
+        followersCount = dictionary["followers_count"] as! Int
+        followingCount = dictionary["friends_count"] as! Int
+        tweetCount = dictionary["statuses_count"] as! Int
+        bio = dictionary["description"] as! String
         
     }
 }

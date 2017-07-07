@@ -27,6 +27,13 @@ class ProfileViewController: UIViewController {
         nameLabel.text = user.name
         screenNameLabel.text = "@" + user.screenName
         profileImageView.af_setImage(withURL: user.profilePicture!)
+        if let backgroundURL = user.backgroundURL {
+            backgroundImageView.af_setImage(withURL: backgroundURL)
+        }
+        followersLabel.text = String(describing: user.followersCount)
+        followingLabel.text = String(describing: user.followingCount)
+        tweetNumberLabel.text = String(describing: user.tweetCount)
+        bioLabel.text = user.bio
         
     }
 
